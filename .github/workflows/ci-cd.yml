@@ -32,3 +32,24 @@ jobs:
 
       - name: Сборка и тестирование
         run: mvn clean test
+
+
+  deploy:
+    name: Деплой приложения (условный SSH)
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Клонирование репозитория
+        uses: actions/checkout@v4
+
+      - name: Сборка JAR-файла
+        run: mvn clean package -DskipTests
+
+      - name: Условный деплой по SSH
+        run: |
+          echo "Подключение к серверу ${{ secrets.SSH_HOST }} под пользователем ${{ secrets.SSH_USERNAME }}"
+          echo "Передача JAR-файла на сервер..."
+          mkdir -p deploy_demo
+          cp target/ci-cd-1.0-SNAPSHOT.jar deploy_demo/
+          echo "Деплой успешно завершён (симуляция)"

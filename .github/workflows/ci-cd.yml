@@ -16,8 +16,8 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
-          - macos-13      # Intel
-          - macos-latest  # Apple Silicon
+          - macos-15-intel  # Intel
+          - macos-latest    # Apple Silicon
 
     steps:
       - name: Клонирование репозитория

@@ -57,6 +57,12 @@ jobs:
           cache: maven
           distribution: temurin
 
+      - name: Кэш базы Dependency Check
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/dependency-check-data
+          key: ${{ runner.os }}-dependency-check
+
       - name: Запуск Dependency Check
         run: mvn verify
 

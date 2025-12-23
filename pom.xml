@@ -54,6 +54,48 @@
 
     <build>
         <plugins>
+            <!-- CycloneDX SBOM generator -->
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>2.7.10</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <projectType>library</projectType>
+                    <schemaVersion>1.5</schemaVersion>
+                    <outputFormat>xml</outputFormat>
+                    <outputName>bom</outputName>
+                    <includeBomSerialNumber>true</includeBomSerialNumber>
+                </configuration>
+
+            </plugin>
+
+
+            <!-- OWASP Dependency Check -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>12.1.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <format>HTML</format>
+                    <failBuildOnCVSS>0</failBuildOnCVSS>
+                </configuration>
+            </plugin>
+
             <!-- Surefire для запуска тестов -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
